@@ -6,7 +6,7 @@ public class Drag : MonoBehaviour
 {
     Vector3 mousePos;
 
-    public static Drag Instance;
+    //public static Drag Instance;
 
     public float minPosX;
     public float maxPosX;
@@ -19,7 +19,7 @@ public class Drag : MonoBehaviour
 
     private void Awake()
     {
-        Drag.Instance = this;
+        //Drag.Instance = this;
     }
     private Vector3 GetMousePos()
     {

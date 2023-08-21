@@ -5,54 +5,52 @@ using UnityEngine.UIElements;
 
 public class BallControler : MonoBehaviour
 {
-    protected GameObject SpawnPoint;
-    protected GameObject BallPrefab;
+    [SerializeField] GameObject SpawnPoint;
+    [SerializeField] BallColl BallPrefab;
 
     private List<GameObject> balls;
     public int maxBall = 1;
     public float timer = 0;
     public float delay = 2f;
-    private bool ReadySpawn = false;
 
+    public BallColl currentBall = null;
+    public static BallControler Instance;
 
     private void Awake()
     {
-        this.SpawnPoint = GameObject.Find("PointSpawn");
-        this.BallPrefab = GameObject.Find("BallPrefab");
+        Instance = this;
     }
-
 
     // Start is called before the first frame update
     void Start()
     {
         balls = new List<GameObject>();
-        BallPrefab.SetActive(false);
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        this.ReadySpawn = Drag.Instance.falling;
-        if (ReadySpawn || balls.Count == 0)
+        if (currentBall == null)
         {
-            SpawnBall();
+            currentBall = SpawnBall();
         }
     }
 
-    void SpawnBall()
+    BallColl SpawnBall()
     {
         timer += Time.deltaTime;
-        if (timer < delay) return;
+        if (timer < delay) return null;
         timer = 0;
 
-        if (balls.Count >= maxBall) return;
+        if (balls.Count >= maxBall) return null;
 
         int index = this.balls.Count + 1;
-        GameObject ball = Instantiate(BallPrefab, SpawnPoint.transform.position, Quaternion.identity, SpawnPoint.transform) as GameObject;
+        BallColl ball = Instantiate(BallPrefab, SpawnPoint.transform.position, Quaternion.identity, SpawnPoint.transform);
         ball.name = "Ball" + index;
-        ball.SetActive(true);
-        balls.Add(ball);
+        ball.gameObject.SetActive(true);
+
+        return ball;
     }
 
 }

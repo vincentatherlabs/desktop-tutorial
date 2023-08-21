@@ -14,6 +14,7 @@ public class BallColl : MonoBehaviour
     public Camera cameraMain;
     Vector3 originalPos;
 
+    public Drag drag;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +41,10 @@ public class BallColl : MonoBehaviour
 
                 moveCoroutine = StartCoroutine(Shake(duration, magnitude));
             }
+        } else if (col.gameObject.tag == "Destroy")
+        {
+            Destroy(gameObject);
+            BallControler.Instance.currentBall = null;
         }
     }
 
