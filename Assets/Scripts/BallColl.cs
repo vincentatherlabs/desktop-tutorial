@@ -43,8 +43,12 @@ public class BallColl : MonoBehaviour
             }
         } else if (col.gameObject.tag == "Destroy")
         {
-            Destroy(gameObject);
-            BallControler.Instance.currentBall = null;
+            if (BallController.Instance.currentBall == this) {
+                Destroy(gameObject);
+                BallControler.Instance.currentBall = null;
+            } else {
+                Destroy(gameObject);
+            }
         }
     }
 
