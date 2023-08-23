@@ -25,8 +25,17 @@ public class BallControler : MonoBehaviour
     void Start()
     {
         balls = new List<GameObject>();
+
+        Drag.OnDragReleaseBall += OnDragReleaseBallListener;
     }
 
+    void OnDestroy() {
+        Drag.OnDragReleaseBall -= OnDragReleaseBallListener;
+    }
+
+    void OnDragReleaseBallListener(Drag drag) {
+        Debug.Log("OnDragReleaseBallListener");
+    }
 
     // Update is called once per frame
     void Update()
