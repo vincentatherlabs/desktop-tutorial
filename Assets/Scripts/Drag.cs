@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Drag : MonoBehaviour
 {
+
+    public static System.Action<Drag> OnDragReleaseBall = delegate {};
     Vector3 mousePos;
 
     //public static Drag Instance;
@@ -63,6 +65,8 @@ public class Drag : MonoBehaviour
             falling = true;
             transform.tag = "Untagged";
             this.GetComponent<Rigidbody>().isKinematic = false;
+
+            OnDragReleaseBall(this);
         }
 
     }
